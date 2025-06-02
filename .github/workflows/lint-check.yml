@@ -1,0 +1,39 @@
+# .github/workflows/lint-check.yml
+name: Lint Check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+    defaults:
+      run:
+        working-directory: .
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # このワークフローは、プロジェクトの言語やフレームワークに合わせてカスタマイズしてください
+      # 以下は一般的な例です
+
+      # Markdownファイルのリンクチェック
+      - name: Check Markdown links
+        uses: gaurav-nelson/github-action-markdown-link-check@v1
+        with:
+          use-quiet-mode: 'yes'
+          use-verbose-mode: 'yes'
+          config-file: '.github/workflows/markdown-link-check-config.json'
+        continue-on-error: true
+
+      # 他の言語やフレームワークに合わせて適宜カスタマイズしてください
+      - name: Placeholder step
+        run: echo "プロジェクトの言語に合わせてこのワークフローをカスタマイズしてください"
